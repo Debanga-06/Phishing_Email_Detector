@@ -1,0 +1,86 @@
+{
+    "name": "secureguard-ai-frontend",
+    "version": "1.0.0",
+    "description": "Advanced AI-powered phishing and malware detection frontend",
+    "private": true,
+    "dependencies": {
+        "@testing-library/jest-dom": "^5.16.4",
+        "@testing-library/react": "^13.3.0",
+        "@testing-library/user-event": "^13.5.0",
+        "axios": "^1.6.0",
+        "lucide-react": "^0.263.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-router-dom": "^6.8.0",
+        "react-scripts": "5.0.1",
+        "react-toastify": "^9.1.3",
+        "recharts": "^2.8.0",
+        "web-vitals": "^2.1.4"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "build:prod": "npm run build && npm run optimize",
+        "optimize": "npx workbox generateSW workbox-config.js",
+        "analyze": "npm run build && npx bundle-analyzer build/static/js/*.js",
+        "lint": "eslint src/**/*.{js,jsx}",
+        "lint:fix": "eslint src/**/*.{js,jsx} --fix",
+        "format": "prettier --write src/**/*.{js,jsx,css,md}"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ],
+        "rules": {
+            "no-unused-vars": "warn",
+            "no-console": "warn",
+            "react-hooks/exhaustive-deps": "warn"
+        }
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+        "eslint": "^8.45.0",
+        "prettier": "^3.0.0",
+        "workbox-cli": "^7.0.0"
+    },
+    "proxy": "http://localhost:8000",
+    "homepage": ".",
+    "keywords": [
+        "react",
+        "cybersecurity",
+        "phishing-detection",
+        "malware-scanner",
+        "ai",
+        "machine-learning",
+        "email-security",
+        "hackathon",
+        "security-tools"
+    ],
+    "author": {
+        "name": "SecureGuard AI Team",
+        "email": "team@secureguard-ai.com"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Debanga-06/Phishing_Email_Detector-frontend.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Debanga-06/Phishing_Email_Detector-frontend/issues"
+    }
+}
