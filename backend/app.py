@@ -63,7 +63,8 @@ class Config:
         "http://localhost:3000",
         "http://localhost:3001",
         "http://127.0.0.1:3000",
-        "https://your-domain.com"
+        "https://phishing-email-detector-wiom.onrender.com",
+        "https://phishing-email-detector-psi.vercel.app"
     ]
 
 config = Config()
