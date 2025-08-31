@@ -132,33 +132,80 @@ class MLModelHandler:
         self.loaded = False
     
     async def load_models(self):
-        """Load trained ML models"""
+        """Load trained ML models from multiple possible paths"""
         try:
-            model_dir = config.MODEL_PATH
+            # Try different possible model paths
+            possible_paths = [
+                "models/",           # Same directory as backend
+                "../ml/models/",     # ML folder relative to backend
+                "ml/models/",        # ML folder from project root
+                "./ml/models/",      # Alternative ML folder path
+                "../../ml/models/"   # If backend is nested deeper
+            ]
             
-            # Load email phishing model
-            email_model_path = os.path.join(model_dir, "email_phishing_model.pkl")
-            vectorizer_path = os.path.join(model_dir, "email_vectorizer.pkl")
-            file_model_path = os.path.join(model_dir, "file_malware_model.pkl")
+            models_loaded = False
             
-            if os.path.exists(email_model_path):
-                self.email_model = joblib.load(email_model_path)
-                logger.info("Email phishing model loaded successfully")
+            for model_path in possible_paths:
+                try:
+                    # Define model file paths
+                    email_model_path = os.path.join(model_path, "email_phishing_model.pkl")
+                    vectorizer_path = os.path.join(model_path, "email_vectorizer.pkl")
+                    file_model_path = os.path.join(model_path, "file_malware_model.pkl")
+                    
+                    # Check if all model files exist
+                    if all(os.path.exists(p) for p in [email_model_path, vectorizer_path, file_model_path]):
+                        # Load the models
+                        self.email_model = joblib.load(email_model_path)
+                        self.vectorizer = joblib.load(vectorizer_path)
+                        self.file_model = joblib.load(file_model_path)
+                        
+                        logger.info(f"✅ All ML models loaded successfully from {model_path}")
+                        models_loaded = True
+                        break
+                        
+                except Exception as e:
+                    logger.debug(f"Failed to load from {model_path}: {e}")
+                    continue
             
-            if os.path.exists(vectorizer_path):
-                self.vectorizer = joblib.load(vectorizer_path)
-                logger.info("Email vectorizer loaded successfully")
+            if models_loaded:
+                self.loaded = True
+                logger.info("✅ ML models are ready for predictions")
+            else:
+                logger.warning("⚠️  No ML models found in any expected location. Using fallback rule-based detection.")
+                # Try to train new models if training script exists
+                await self._try_train_fallback_models()
                 
-            if os.path.exists(file_model_path):
-                self.file_model = joblib.load(file_model_path)
-                logger.info("File malware model loaded successfully")
+        except Exception as e:
+            logger.error(f"❌ Error during model loading: {e}")
+            self.loaded = False
+    
+    async def _try_train_fallback_models(self):
+        """Try to train models if they don't exist"""
+        try:
+            logger.info("🔄 Attempting to train fallback models...")
             
-            self.loaded = True
-            logger.info("All ML models loaded successfully")
+            # Check if we can import training functions
+            try:
+                # Try to import from a training module if it exists
+                from train_models import train_models
+                success = train_models()
+                
+                if success:
+                    # Try to load the newly trained models
+                    await self.load_models()
+                    return
+                    
+            except ImportError:
+                logger.debug("No training module found, will use rule-based detection")
+            except Exception as e:
+                logger.error(f"Training failed: {e}")
+            
+            # If we get here, training failed or no training module exists
+            logger.info("📋 Using rule-based detection as fallback")
+            self.loaded = False
             
         except Exception as e:
-            logger.error(f"Error loading ML models: {e}")
-            # Use fallback rule-based detection
+            logger.error(f"Fallback training error: {e}")
             self.loaded = False
     
     def extract_email_features(self, email_text: str, sender_email: str = None, subject: str = None):
