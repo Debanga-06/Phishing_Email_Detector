@@ -147,9 +147,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🆘 Support
 
-- **Documentation**: Check our [Wiki](https://github.com/yourusername/phishing-email-detector/wiki)
-- **Issues**: Report bugs on [GitHub Issues](https://github.com/yourusername/phishing-email-detector/issues)
-- **Email**: Contact us at support@secureguardai.com
+- **Documentation**: Check our [Wiki](https://github.com/Debanga-06/Phishing_Email_Detector/wiki)
+- **Issues**: Report bugs on [GitHub Issues](https://github.com/Debanga-06/Phishing_Email_Detector/issues)
+- **Email**: Contact us at squadsyntax72@gmail.com
 
 ## 🎉 Acknowledgments
 
@@ -159,9 +159,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📊 Stats
 
-![GitHub stars](https://img.shields.io/github/stars/yourusername/phishing-email-detector?style=social)
-![GitHub forks](https://img.shields.io/github/forks/yourusername/phishing-email-detector?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/yourusername/phishing-email-detector?style=social)
+![GitHub stars](https://img.shields.io/github/stars/Debanga-06/Phishing_Email_Detector?style=social)
+![GitHub forks](https://img.shields.io/github/forks/Debanga-06/Phishing_Email_Detector?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/Debanga-06/Phishing_Email_Detector?style=social)
 
 ---
 
