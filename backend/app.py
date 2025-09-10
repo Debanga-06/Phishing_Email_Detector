@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 """
 SecureGuard AI - FastAPI Backend Server
 ======================================
@@ -176,7 +176,7 @@ class MLModelHandler:
                 logger.info("✅ ML models are ready for predictions")
             else:
                 logger.warning("⚠️ No ML models found in any expected location. Using fallback rule-based detection.")
-                # Try to train new models if training script exists
+                
                 await self._try_train_fallback_models()
                 
         except Exception as e:
@@ -190,12 +190,12 @@ class MLModelHandler:
             
             # Check if we can import training functions
             try:
-                # Try to import from a training module if it exists
+            
                 from train_models import train_models
                 success = train_models()
                 
                 if success:
-                    # Try to load the newly trained models
+                 
                     await self.load_models()
                     return
                     
